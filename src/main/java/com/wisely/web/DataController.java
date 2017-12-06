@@ -70,9 +70,9 @@ public class DataController {
 	 * 测试withNameAndAddressQuery
 	 */
 	@RequestMapping("/q3")
-	public Person q3(String name,String address){
+	public Object q3(String name,String address){
 		
-		Person p = personRepository.withNameAndAddressQuery(name, address);
+		List<Person> p = personRepository.withNameAndAddressQuery(name, address);
 		
 		return p;
 		

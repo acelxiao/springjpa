@@ -14,8 +14,8 @@ public interface PersonRepository extends CustomRepository<Person, Long> {
 	Person findByNameAndAddress(String name,String address);
 	
 	@Query("select p from Person p where p.name= :name and p.address= :address")
-	
-	Person withNameAndAddressQuery(@Param("name")String name,@Param("address")String address);
+
+	List<Person> withNameAndAddressQuery(@Param("name")String name,@Param("address")String address);
 	
 	Person withNameAndAddressNamedQuery(String name,String address);
 
