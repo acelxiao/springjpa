@@ -29,21 +29,21 @@ public class CustomerSpecs {
 
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				List<Predicate> predicates = new ArrayList<>(); //3
+				List<Predicate> predicates = new ArrayList<>(); //3 存放查询条件
 				
 				EntityType<T> entity = entityManager.getMetamodel().entity(type);//4
 				
-				for (Attribute<T, ?> attr : entity.getDeclaredAttributes()) {//5
+				for (Attribute<T, ?> attr : entity.getDeclaredAttributes()) {//5 获取实体类的属性
 					Object attrValue = getValue(example, attr); //6
 					if (attrValue != null) {
 						if (attr.getJavaType() == String.class) { //7
 							if (!StringUtils.isEmpty(attrValue)) { //8
 								predicates.add(cb.like(root.get(attribute(entity, attr.getName(), String.class)),
-										pattern((String) attrValue))); //9
+										pattern((String) attrValue))); //9 属性类型为字符串且非空,则用like条件查询
 							}
 						} else {
 							predicates.add(cb.equal(root.get(attribute(entity, attr.getName(), attrValue.getClass())),
-									attrValue)); //10
+									attrValue)); //10 属性其他类型,则用 = 条件查询
 						}
 					}
 
